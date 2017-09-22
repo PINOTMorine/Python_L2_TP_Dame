@@ -28,13 +28,15 @@ joueur1 = p.count_piece('B')
 joueur2 = p.count_piece('N')
 
 player=True
+list=p.possible_move(player)
+list2=p.possible_capture(player)
 
 print('DEBUT DE LA PARTIE !!!')
 
 p.to_lines()
 
 
-while joueur1>0 and joueur2>0 :
+while joueur1>0 and joueur2>0 and len(list)>0 and len(list2)>0 :
     if player==True :
         print('Joueur 1 - ',joueur1,' Pions Blancs :')
     else :
