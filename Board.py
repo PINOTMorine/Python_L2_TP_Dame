@@ -1,5 +1,4 @@
 from Piece import *
-from AtomicMove import *
 
 class Board:
     def __init__(self, size):
@@ -68,7 +67,6 @@ class Board:
 
     def possible_move(self,player):
         list = []
-        print('\nListe des cases accessibles :')
         for x in range(self.size):
             for y in range(self.size):
                 if not self.play_board[x][y]== '.' and not self.play_board[x][y]== '_':
@@ -78,3 +76,21 @@ class Board:
                         list += self.play_board[x][y].atomic_moves(self.play_board)
 
         return list
+
+    def deplacement_piece(self,num,list):
+        j=0
+        x_start=0
+        y_start=0
+        x_end=0
+        y_end=0
+        for i in range(0,len(list),4):
+            j+=1
+            if j==num:
+                x_start=list[i]
+                y_start=list[i + 1]
+                x_end=list[i + 2]
+                y_end=list[i + 3]
+        self.play_board[x_start][y_start].set_position(x_end,y_end)
+        self.play_board[x_end][y_end]=self.play_board[x_start][y_start]
+        self.play_board[x_start][y_start]='_'
+        return
