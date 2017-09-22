@@ -77,8 +77,21 @@ class Board:
 
         return list
 
-    def deplacement_piece(self,num,list):
+    def possible_capture(self,player):
+        list = []
+        for x in range(self.size):
+            for y in range(self.size):
+                if not self.play_board[x][y]== '.' and not self.play_board[x][y]== '_':
+                    if player==True and self.play_board[x][y].get_color()=='B':
+                        list += self.play_board[x][y].atomic_capture(self.play_board)
+                    if player==False and self.play_board[x][y].get_color()=='N':
+                        list += self.play_board[x][y].atomic_capture(self.play_board)
+
+        return list
+
+    def deplacement_piece(self,num,list,list2):
         j=0
+        color=''
         x_start=0
         y_start=0
         x_end=0
@@ -90,7 +103,17 @@ class Board:
                 y_start=list[i + 1]
                 x_end=list[i + 2]
                 y_end=list[i + 3]
+        for i in range(0,len(list2),4):
+            j+=1
+            if j==num:
+                x_start=list2[i]
+                y_start=list2[i + 1]
+                x_capture=list2[i+2]
+                y_capture=list2[i+3]
+                x_end=list2[i + 4]
+                y_end=list2[i + 5]
+                color=self.play_board[x_capture][y_capture].get_color()
         self.play_board[x_start][y_start].set_position(x_end,y_end)
         self.play_board[x_end][y_end]=self.play_board[x_start][y_start]
         self.play_board[x_start][y_start]='_'
-        return
+        return color

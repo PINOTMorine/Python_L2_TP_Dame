@@ -16,19 +16,23 @@ def write_list(list):
         print('n°',j,'- Pion(',list[i],',',list[i+1],') vers la case (',list[i+2],',',list[i+3],')')
     return
 
-def deplacer_piece(num,board,list):
-
-    board.deplacement_piece(x_start,y_start,x_end,y_end)
+def write_list_2(num,list):
+    j=num
+    for i in range(0,len(list),6):
+        j+=1
+        print('n°',j,'- Pion(',list[i],',',list[i+1],') vers la case (',list[i+4],',',list[i+5],')')
     return
 
 p=Board(10)
 
+
 player=True
 end=0
+
 p.to_lines()
 
 
-while end!=5 :
+while end!=2 :
     if player==True :
         print('Joueur 1 - Pions Blancs :')
     else :
@@ -41,13 +45,16 @@ while end!=5 :
     write_list(list)
 
     print('\nListe des captures possibles :')
+    list2=p.possible_capture(player)
+    list2=update_list(list2)
+    write_list_2(len(list)//4,list2)
 
     num=0
-    while num>len(list)/4 or num<=0:
-        num=int(input('\nAprès lecture de la liste, saisissez le numéro du déplacement souhaité'))
+    while num>len(list)/4+len(list2)/6 or num<=0:
+        num=int(input('\nAprès lecture des listes, saisissez le numéro du déplacement souhaité'))
 
-    p.deplacement_piece(num,list)
-
+    color=p.deplacement_piece(num,list,list2)
+    print(color)
 
 
     player = not player

@@ -54,16 +54,18 @@ class Piece:
             y2_capture=y2+1
             color_e='B'
 
-        if x>=0 and y>=0 and x<len(board) and y<len(board):
-            if board[x][y] == color_e:
-                if board[x_capture][y_capture] == '_':
-                    list+=self.position[0],self.position[1],x_capture,y_capture
+        if x>=0 and y>=0 and x<len(board) and y<len(board) and x_capture>=0 and y_capture>=0 and x_capture<len(board) and y_capture<len(board):
+            if board[x_capture][y_capture] == '_':
+                if not board[x][y] == '_':
+                    if board[x][y].get_color() == color_e:
+                        list+=self.position[0],self.position[1],x,y,x_capture,y_capture
 
 
-        if x>=0 and y2>=0 and x<len(board) and y2<len(board):
-            if board[x][y2] == color_e:
-                if board[x_capture][y2_capture] == '_':
-                    list+=self.position[0],self.position[1],x_capture,y_capture
+        if x>=0 and y2>=0 and x<len(board) and y2<len(board) and x_capture>=0 and y2_capture>=0 and x_capture<len(board) and y2_capture<len(board):
+            if board[x_capture][y2_capture] == '_':
+                if not board[x][y2] == '_':
+                    if board[x][y2].get_color() == color_e:
+                        list+=self.position[0],self.position[1],x,y2,x_capture,y2_capture
 
 
         return list
