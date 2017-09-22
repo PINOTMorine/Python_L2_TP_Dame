@@ -54,15 +54,14 @@ class Board:
         print()
         return
 
-
-
-    def move_piece(self):
-        x=int(input('Choisir votre pion - Saisir la coordonnée de la ligne : '))
-        y=int(input('Choisir votre pion - Saisir la coordonnée de la colonne : '))
-
-
-
-        return
+    def count_piece(self,color):
+        compteur=0
+        for i in range(self.size):
+            for j in range(self.size):
+                if self.play_board[i][j] is not '_' and self.play_board[i][j] is not '.':
+                    if self.play_board[i][j].get_color()==color:
+                        compteur+=1
+        return compteur
 
 
     def possible_move(self,player):
@@ -103,7 +102,7 @@ class Board:
                 y_start=list[i + 1]
                 x_end=list[i + 2]
                 y_end=list[i + 3]
-        for i in range(0,len(list2),4):
+        for i in range(0,len(list2),6):
             j+=1
             if j==num:
                 x_start=list2[i]
@@ -113,6 +112,7 @@ class Board:
                 x_end=list2[i + 4]
                 y_end=list2[i + 5]
                 color=self.play_board[x_capture][y_capture].get_color()
+                self.play_board[x_capture][y_capture]='_'
         self.play_board[x_start][y_start].set_position(x_end,y_end)
         self.play_board[x_end][y_end]=self.play_board[x_start][y_start]
         self.play_board[x_start][y_start]='_'

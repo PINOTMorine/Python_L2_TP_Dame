@@ -24,20 +24,21 @@ def write_list_2(num,list):
     return
 
 p=Board(10)
-
+joueur1 = p.count_piece('B')
+joueur2 = p.count_piece('N')
 
 player=True
-end=0
+
+print('DEBUT DE LA PARTIE !!!')
 
 p.to_lines()
 
 
-while end!=2 :
+while joueur1>0 and joueur2>0 :
     if player==True :
-        print('Joueur 1 - Pions Blancs :')
+        print('Joueur 1 - ',joueur1,' Pions Blancs :')
     else :
-        print('Joueur 2 - Pions Noirs :')
-        end += 1
+        print('Joueur 2 - ',joueur2,' Pions Noirs :')
 
     print('\nListe des cases accessibles :')
     list=p.possible_move(player)
@@ -54,8 +55,18 @@ while end!=2 :
         num=int(input('\nAprès lecture des listes, saisissez le numéro du déplacement souhaité'))
 
     color=p.deplacement_piece(num,list,list2)
-    print(color)
+    if not color=='':
+        print('Vous avez capturé un pion adverse')
+        if player == True:
+            joueur2-=1
+        else:
+            joueur1-=1
+
 
 
     player = not player
     p.to_lines()
+
+print('FIN DE LA PARTIE !!!')
+print('Joueur 1 - ',joueur1,' Pions Blancs :')
+print('Joueur 2 - ',joueur2,' Pions Noirs :')
