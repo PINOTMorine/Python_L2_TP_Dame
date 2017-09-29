@@ -1,4 +1,6 @@
 from Piece import *
+from Man import *
+from King import *
 
 class Board:
     def __init__(self, size):
@@ -15,11 +17,11 @@ class Board:
 
         for i in range(0,self.size//2-1,2):
             for j in range(0,self.size,2):
-                self.play_board[i][j]=Piece((i,j),'B')
+                self.play_board[i][j]=Man((i,j),'B')
 
         for i in range(1,self.size//2-1,2):
             for j in range(1,self.size,2):
-                self.play_board[i][j]=Piece((i,j),'B')
+                self.play_board[i][j]=Man((i,j),'B')
 
         if self.size//2 %2:
             x=0
@@ -30,11 +32,11 @@ class Board:
 
         for i in range(self.size//2+1,self.size,2):
             for j in range(x,self.size,2):
-                self.play_board[i][j]=Piece((i,j),'N')
+                self.play_board[i][j]=Man((i,j),'N')
 
         for i in range(self.size//2+2,self.size,2):
             for j in range(y,self.size,2):
-                self.play_board[i][j]=Piece((i,j),'N')
+                self.play_board[i][j]=Man((i,j),'N')
 
 
     def to_lines(self):
@@ -69,9 +71,9 @@ class Board:
         for x in range(self.size):
             for y in range(self.size):
                 if not self.play_board[x][y]== '.' and not self.play_board[x][y]== '_':
-                    if player==True and self.play_board[x][y].get_color()=='B':
+                    if player==True and (self.play_board[x][y].get_color()=='B' or self.play_board[x][y].get_color()=='K'):
                         list += self.play_board[x][y].atomic_moves(self.play_board)
-                    if player==False and self.play_board[x][y].get_color()=='N':
+                    if player==False and (self.play_board[x][y].get_color()=='N' or self.play_board[x][y].get_color()=='Q'):
                         list += self.play_board[x][y].atomic_moves(self.play_board)
 
         return list
@@ -116,4 +118,15 @@ class Board:
         self.play_board[x_start][y_start].set_position(x_end,y_end)
         self.play_board[x_end][y_end]=self.play_board[x_start][y_start]
         self.play_board[x_start][y_start]='_'
+
+        # test : if King
+        for i in range(self.size):
+            for j in range(self.size):
+                if not self.play_board[i][j] == '.' and not self.play_board[i][j] == '_':
+                    if self.play_board[i][j].get_color()=='B' and i==len(self.play_board)-1:
+                        self.play_board[i][j]=King((i,j),'K')
+                    elif self.play_board[i][j].get_color()=='N' and i==0:
+                        self.play_board[i][j]=King((i,j),'Q')
+
+
         return color
