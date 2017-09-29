@@ -1,19 +1,54 @@
 class Piece:
+    """
+    Classe Piece
+    """
+
     def __init__(self, position, color):
+        """
+        Constructeur du plateau de jeu
+        Initialisation du plateau
+
+        :param position: list de coordonnées x et y du pion
+        :param color: couleur du pion
+        """
+
         self.position=position
         self.color=color
 
     def get_color(self):
+        """
+        Retourne la couleur d'un pion
+
+        :return: la lettre de la couleur du pion
+        """
         return self.color
 
     def get_position(self):
+        """
+        Retourne la position d'un pion
+
+        :return: retourne les coordonnées d'un pion
+        """
         return self.position
 
     def set_position(self,x,y):
+        """
+        Modifie la position d'un pion
+
+        :param x: coordonnée de la ligne
+        :param y: coordonnées de la colonne
+        :return:
+        """
         self.position=(x,y)
         return
 
     def atomic_moves(self,board):
+        """
+        Fonction permettant de créer une liste des déplacements possibles pour un pion
+
+        :param board: plateau de jeu
+        :return: une liste de déplacements possible
+        """
         list = []
 
         if self.color=='B':
@@ -35,6 +70,13 @@ class Piece:
         return list
 
     def atomic_capture(self,board):
+        """
+        Fonction permettant de créer une liste des captures possibles pour un pion
+
+        :param board: plateau de jeu
+        :return: une liste de captures possible
+        """
+
         list = []
         color_e=''
         color_e_2=''

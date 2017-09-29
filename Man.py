@@ -1,8 +1,17 @@
 from Piece import *
 
 class Man(Piece):
+    """
+    Classe Man, héritant de la classe Piece
+    """
 
     def atomic_moves(self, board):
+        """
+        Fonction permettant de créer une liste des déplacements possibles pour un pion Man
+
+        :param board: plateau de jeu
+        :return: une liste de déplacements possibles
+        """
         list = []
 
         if self.color == 'B':
